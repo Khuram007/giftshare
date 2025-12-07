@@ -9,7 +9,7 @@
     @livewireStyles
 </head>
 <body>
-<div class="container">
+<div class="container mb-12">
     @include('layouts.partials.nav')
     @if(session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>

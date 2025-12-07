@@ -36,11 +36,11 @@ class Create extends Component
     {
         return [
             'title' => 'required|min:3|max:255',
-            'description' => 'nullable|max:2000',
-            'category_id' => 'nullable|exists:categories,id',
+            'description' => 'required|max:2000',
+            'category_id' => 'required|exists:categories,id',
             'weight_kg' => 'nullable|numeric',
             'dimensions' => 'nullable|string|max:255',
-            'status' => ['required', Rule::in(['available', 'gifted'])],
+//            'status' => ['required', Rule::in(['available', 'gifted'])],
             'photos.*' => 'image|max:5120' // 5MB
         ];
     }
