@@ -20,6 +20,17 @@
             </div>
         </div>
 
+        <div class="row mb-3">
+            <div class="col">
+                <select wire:model="status" class="form-select">
+                    <option value="">Status</option>
+                        <option value="available">Available</option>
+                        <option value="gifted">Gifted</option>
+                </select>
+                @error('status') <small class="text-danger">{{ $message }}</small> @enderror
+            </div>
+        </div>
+
         <div class="mb-3">
             <label>Photos</label>
             <input wire:model="photos" type="file" multiple class="form-control" />

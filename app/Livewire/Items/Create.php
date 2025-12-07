@@ -13,6 +13,7 @@ class Create extends Component
 {
     use WithFileUploads;
 
+    public $id;
     public $item;
     public $title, $description, $category_id, $weight_kg, $dimensions, $status = 'available';
     public $photos = []; // temporary uploaded files
@@ -21,6 +22,7 @@ class Create extends Component
     public function mount(Item $item = null)
     {
         if ($item) {
+            $this->id = $item->id;
             $this->item = $item;
             $this->title = $item->title;
             $this->description = $item->description;
@@ -40,7 +42,7 @@ class Create extends Component
             'category_id' => 'required|exists:categories,id',
             'weight_kg' => 'nullable|numeric',
             'dimensions' => 'nullable|string|max:255',
-//            'status' => ['required', Rule::in(['available', 'gifted'])],
+            'status' => ['required', Rule::in(['available', 'gifted'])],
             'photos.*' => 'image|max:5120' // 5MB
         ];
     }
@@ -59,7 +61,7 @@ class Create extends Component
             'user_id' => auth()->id()
         ];
 
-        if ($this->item) {
+        if ($this->id) {
             $this->item->update($data);
         } else {
             $this->item = Item::create($data);
@@ -77,7 +79,7 @@ class Create extends Component
         // reset photo input
         $this->photos = [];
         session()->flash('message', 'Item saved.');
-        return redirect()->route('items.index', $this->item);
+        return redirect()->route('items.index');
     }
 
     public function render()
